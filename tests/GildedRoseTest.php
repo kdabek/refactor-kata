@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
 
-use App\GildedRose;
-use App\Item;
+namespace App;
+
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
