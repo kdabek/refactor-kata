@@ -3,57 +3,31 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Item\Item;
+use App\Specification\Composite\SpecificationInterface;
+
+use function call_user_func;
+
 final class GildedRose
 {
-    public function updateQuality($item)
+    /**
+     * @var array
+     */
+    private $specifications;
+
+    public function __construct(array $specifications)
     {
-        if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if ($item->quality > 0) {
-                if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                    $item->quality = $item->quality - 1;
-                } else {
-                    $item->quality = 80;
-                }
-            }
-        } else {
-            if ($item->quality < 50) {
-                $item->quality = $item->quality + 1;
-                if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($item->sell_in < 11) {
-                        if ($item->quality < 50) {
-                            $item->quality = $item->quality + 1;
-                        }
-                    }
-                    if ($item->sell_in < 6) {
-                        if ($item->quality < 50) {
-                            $item->quality = $item->quality + 1;
-                        }
-                    }
-                }
-            }
-        }
+        $this->specifications = $specifications;
+    }
 
-        if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-            $item->sell_in = $item->sell_in - 1;
-        }
-
-        if ($item->sell_in < 0) {
-            if ($item->name != 'Aged Brie') {
-                if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($item->quality > 0) {
-                        if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                            $item->quality = $item->quality - 1;
-                        }
-                    }
-                } else {
-                    $item->quality = $item->quality - $item->quality;
-                }
-            } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                }
+    public function updateItem(Item $item)
+    {
+        /** @var SpecificationInterface $specification */
+        foreach ($this->specifications as [$specification, $callback]) {
+            if ($specification->isSatisfiedBy($item)) {
+                call_user_func($callback, $item);
+                break;
             }
         }
     }
-
 }

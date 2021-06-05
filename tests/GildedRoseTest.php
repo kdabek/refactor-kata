@@ -4,9 +4,78 @@ declare(strict_types=1);
 namespace App;
 
 use PHPUnit\Framework\TestCase;
+use App\Item\SellIn;
+use App\Item\Item;
+use App\Item\Quality;
+use App\Specification\SellInDate;
+use App\Specification\EqualName;
+use App\Specification\SellInLessThanOrEqual;
+use App\Specification\SellByDate;
 
 class GildedRoseTest extends TestCase
 {
+    private $specifications;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->specifications = [
+            [   (new EqualName('Sulfuras, Hand of Ragnaros')), function (Item $item) {
+                $item->updateQuality(Quality::fromInteger(80));
+                }
+            ],
+            [
+                (new EqualName('Aged Brie'))->and(new SellInLessThanOrEqual(0)), function (Item $item) {
+                $item->updateQuality($item->getQuality()->increaseTwice());
+                $item->decreaseSellIn();
+                }
+            ],
+            [
+                (new EqualName('Aged Brie')), function (Item $item) {
+                $item->updateQuality($item->getQuality()->increase());
+                $item->decreaseSellIn();
+            }
+            ],
+            [
+                (new EqualName('Backstage passes to a TAFKAL80ETC concert'))->and(new SellByDate()), function (Item $item) {
+                $item->updateQuality($item->getQuality()->drop());
+                $item->decreaseSellIn();
+            }
+            ],
+            [
+                (new EqualName('Backstage passes to a TAFKAL80ETC concert'))->and(new SellInLessThanOrEqual(5)), function (Item $item) {
+                $item->updateQuality($item->getQuality()->increaseBy(3));
+                $item->decreaseSellIn();
+            },
+            ],
+            [
+                (new EqualName('Backstage passes to a TAFKAL80ETC concert'))->and(new SellInLessThanOrEqual(10)), function (Item $item) {
+                $item->updateQuality($item->getQuality()->increaseTwice());
+                $item->decreaseSellIn();
+            }
+            ],
+            [
+                (new EqualName('Backstage passes to a TAFKAL80ETC concert'))->and(new SellInDate()), function (Item $item) {
+                $item->updateQuality($item->getQuality()->increase());
+                $item->decreaseSellIn();
+                }
+            ],
+            [
+                (new SellByDate()), function(Item $item) {
+                $item->updateQuality($item->getQuality()->decreaseTwice());
+                $item->decreaseSellIn();
+            }
+            ],
+            [
+                (new SellInDate()), function(Item $item) {
+                $item->updateQuality($item->getQuality()->decrease());
+                $item->decreaseSellIn();
+            }
+            ]
+        ];
+    }
+
     /**
      * @dataProvider itemsProvider
      * @param string $name
@@ -19,11 +88,12 @@ class GildedRoseTest extends TestCase
     {
         $item = new Item($name, $sellIn, $quality);
 
-        $gildedRose = new GildedRose();
-        $gildedRose->updateQuality($item);
+        $gildedRose = new GildedRose($this->specifications);
+        //$gildedRose->updateQuality($item);
+        $gildedRose->updateItem($item);
 
-        $this->assertEquals($expectedSellIn, $item->sell_in);
-        $this->assertEquals($expectedQuality, $item->quality);
+        $this->assertEquals(SellIn::fromInteger($expectedSellIn), $item->getSellIn());
+        $this->assertEquals(Quality::fromInteger($expectedQuality), $item->getQuality());
     }
 
     public function itemsProvider(): array
