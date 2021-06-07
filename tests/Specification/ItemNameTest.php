@@ -6,7 +6,7 @@ namespace App\Specification;
 use App\Item\Item;
 use PHPUnit\Framework\TestCase;
 
-class EqualNameTest extends TestCase
+class ItemNameTest extends TestCase
 {
     /**
      * @var Item
@@ -22,13 +22,13 @@ class EqualNameTest extends TestCase
 
     public function testSatisfied()
     {
-        $name = new EqualName('Aged Brie');
+        $name = new ItemName('Aged Brie');
         $this->assertTrue($name->isSatisfiedBy($this->item));
     }
 
     public function testNotSatisfied()
     {
-        $name = new EqualName('Sulfuras');
+        $name = new ItemName('Sulfuras');
         $this->assertFalse($name->isSatisfiedBy($this->item));
     }
 }

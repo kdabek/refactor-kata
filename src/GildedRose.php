@@ -13,17 +13,17 @@ final class GildedRose
     /**
      * @var array
      */
-    private $specifications;
+    private $behaviors;
 
-    public function __construct(array $specifications)
+    public function __construct(array $behaviors)
     {
-        $this->specifications = $specifications;
+        $this->behaviors = $behaviors;
     }
 
     public function updateItem(Item $item)
     {
         /** @var SpecificationInterface $specification */
-        foreach ($this->specifications as [$specification, $callback]) {
+        foreach ($this->behaviors as [$specification, $callback]) {
             if ($specification->isSatisfiedBy($item)) {
                 call_user_func($callback, $item);
                 break;

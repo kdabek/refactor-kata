@@ -18,6 +18,11 @@ class SellInLessThanOrEqual extends Composite\CompositeSpecification
         $this->sellIn = SellIn::fromInteger($sellIn);
     }
 
+    public static function to(int $sellIn): self
+    {
+        return new self($sellIn);
+    }
+
     public function isSatisfiedBy(Item $item): bool
     {
         return $item->getSellIn()->lessThanOrEqual($this->sellIn);

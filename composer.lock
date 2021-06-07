@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d461eac4a09b34338c8f3f7017349d9",
+    "content-hash": "ba33c4d598a3aa254366cb6474d3a298",
     "packages": [],
     "packages-dev": [
         {
@@ -769,16 +769,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.15",
+            "version": "8.5.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "038d4196d8e8cb405cd5e82cedfe413ad6eef9ef"
+                "reference": "cc66f2fc61296be66c99931a862200e7456b9a01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/038d4196d8e8cb405cd5e82cedfe413ad6eef9ef",
-                "reference": "038d4196d8e8cb405cd5e82cedfe413ad6eef9ef",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cc66f2fc61296be66c99931a862200e7456b9a01",
+                "reference": "cc66f2fc61296be66c99931a862200e7456b9a01",
                 "shasum": ""
             },
             "require": {
@@ -850,7 +850,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.15"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.16"
             },
             "funding": [
                 {
@@ -862,7 +862,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-17T07:27:54+00:00"
+            "time": "2021-06-05T04:46:20+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -1786,7 +1786,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.3 < 7.4"
+    },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

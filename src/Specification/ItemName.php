@@ -5,7 +5,7 @@ namespace App\Specification;
 
 use App\Item\Item;
 
-class EqualName extends Composite\CompositeSpecification
+class ItemName extends Composite\CompositeSpecification
 {
     /**
      * @var string
