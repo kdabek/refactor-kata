@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Specification\Composite;
+namespace App\Item\Specification\Composite;
 
 use App\Item\Item;
 

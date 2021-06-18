@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Builder;
+namespace App\Item\Builder;
 
 use LogicException;
-use App\Specification\Composite\SpecificationInterface;
+use App\Item\Specification\Composite\SpecificationInterface;
 
 use function count;
 

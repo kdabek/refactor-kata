@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Item\Item;
-use App\Specification\Composite\SpecificationInterface;
+use App\Item\Specification\Composite\SpecificationInterface;
 
 use function call_user_func;
 

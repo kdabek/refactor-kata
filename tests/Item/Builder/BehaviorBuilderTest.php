@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Builder;
+namespace App\Item\Builder;
 
 use LogicException;
-use App\Specification\SellInDate;
+use App\Item\Specification\SellInDate;
 use PHPUnit\Framework\TestCase;
 
 class BehaviorBuilderTest extends TestCase

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Specification\Composite;
+namespace App\Item\Specification\Composite;
 
 use App\Item\Item;
-use App\Specification\ItemName;
-use App\Specification\SellByDate;
-use App\Specification\SellInDate;
+use App\Item\Specification\ItemName;
+use App\Item\Specification\SellByDate;
+use App\Item\Specification\SellInDate;
 use PHPUnit\Framework\TestCase;
 
 class AndSpecificationTest extends TestCase

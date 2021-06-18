@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Builder\BehaviorBuilder;
+use App\Item\Builder\BehaviorBuilder;
 use App\Item\Item;
 use App\Item\Quality;
 use App\Item\SellIn;
-use App\Specification\ItemName;
-use App\Specification\SellByDate;
-use App\Specification\SellInDate;
-use App\Specification\SellInLessThanOrEqual;
+use App\Item\Specification\ItemName;
+use App\Item\Specification\SellByDate;
+use App\Item\Specification\SellInDate;
+use App\Item\Specification\SellInLessThanOrEqual;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase

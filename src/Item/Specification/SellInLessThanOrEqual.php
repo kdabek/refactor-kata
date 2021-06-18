@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Specification;
+namespace App\Item\Specification;
 
 use App\Item\Item;
 use App\Item\SellIn;
