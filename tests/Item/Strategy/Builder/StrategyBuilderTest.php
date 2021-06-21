@@ -1,16 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Item\Builder;
+namespace App\Item\Strategy\Builder;
 
+use App\Item\Strategy\DecreaseSellIn;
 use LogicException;
 use App\Item\Specification\SellInDate;
 use PHPUnit\Framework\TestCase;
 
-class BehaviorBuilderTest extends TestCase
+class StrategyBuilderTest extends TestCase
 {
     /**
-     * @var BehaviorBuilder
+     * @var StrategyBuilder
      */
     private $builder;
 
@@ -18,24 +19,24 @@ class BehaviorBuilderTest extends TestCase
     {
         parent::setUp();
 
-        $this->builder = new BehaviorBuilder();
+        $this->builder = new StrategyBuilder();
     }
 
-    public function testCannotBuildBehaviorWithoutCallback()
+    public function testCannotBuildBehaviorWithoutStrategy()
     {
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('Incorrect specifications and callbacks count.');
+        $this->expectExceptionMessage('Incorrect specifications and strategies count.');
         $this->builder->when(new SellInDate())->build();
     }
 
     public function testBuildBehavior()
     {
-        $result = $this->builder->when(new SellInDate())->then(function () {})->build();
+        $result = $this->builder->when(new SellInDate())->then(new DecreaseSellIn())->build();
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertCount(2, $result[0]);
         $this->assertInstanceOf(SellInDate::class, $result[0][0]);
-        $this->assertIsCallable($result[0][1]);
+        $this->assertInstanceOf(DecreaseSellIn::class, $result[0][1]);
     }
 }

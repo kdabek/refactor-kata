@@ -8,7 +8,8 @@ use InvalidArgumentException;
 final class Quality
 {
     private const MAX_QUALITY     = 50;
-    private const SPECIAL_QUALITY = 80;
+    public const  SPECIAL_QUALITY = 80;
+
     /**
      * @var int
      */

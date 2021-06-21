@@ -3,7 +3,17 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Item\Builder\BehaviorBuilder;
+use App\Item\Strategy\Builder\StrategyBuilder;
+use App\Item\Strategy\DecreaseQuality;
+use App\Item\Strategy\DecreaseQualityTwice;
+use App\Item\Strategy\DecreaseSellIn;
+use App\Item\Strategy\DropQuality;
+use App\Item\Strategy\Factory\StrategyFactory;
+use App\Item\Strategy\Factory\UpdateStrategyFactory;
+use App\Item\Strategy\IncreaseQuality;
+use App\Item\Strategy\IncreaseQualityBy;
+use App\Item\Strategy\IncreaseQualityTwice;
+use App\Item\Strategy\SetSpecialQuality;
 use App\Item\Item;
 use App\Item\Quality;
 use App\Item\SellIn;
@@ -16,66 +26,15 @@ use PHPUnit\Framework\TestCase;
 class GildedRoseTest extends TestCase
 {
     /**
-     * @var array
+     * @var StrategyFactory
      */
-    private $behaviors;
+    private $strategyFactory;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $sulfuras   = new ItemName('Sulfuras, Hand of Ragnaros');
-        $brie       = new ItemName('Aged Brie');
-        $backstage  = new ItemName('Backstage passes to a TAFKAL80ETC concert');
-        $sellInDate = new SellInDate();
-        $sellByDate = new SellByDate();
-
-        $this->behaviors = (new BehaviorBuilder())
-            ->when($sulfuras)
-            ->then(function (Item $item) {
-                $item->updateQuality(Quality::fromInteger(80));
-            })
-            ->when($brie->and(SellInLessThanOrEqual::to(0)))
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->increaseTwice());
-                $item->decreaseSellIn();
-            })
-            ->when($brie)
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->increase());
-                $item->decreaseSellIn();
-            })
-            ->when($backstage->and($sellByDate))
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->drop());
-                $item->decreaseSellIn();
-            })
-            ->when($backstage->and(SellInLessThanOrEqual::to(5)))
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->increaseBy(3));
-                $item->decreaseSellIn();
-            })
-            ->when($backstage->and(SellInLessThanOrEqual::to(10)))
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->increaseTwice());
-                $item->decreaseSellIn();
-            })
-            ->when($backstage->and($sellInDate))
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->increase());
-                $item->decreaseSellIn();
-            })
-            ->when($sellByDate)
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->decreaseTwice());
-                $item->decreaseSellIn();
-            })
-            ->when($sellInDate)
-            ->then(function (Item $item) {
-                $item->updateQuality($item->getQuality()->decrease());
-                $item->decreaseSellIn();
-            })
-            ->build();
+        $this->strategyFactory = new UpdateStrategyFactory($this->getStrategyBuilder());
     }
 
     /**
@@ -90,7 +49,7 @@ class GildedRoseTest extends TestCase
     {
         $item = new Item($name, $sellIn, $quality);
 
-        $gildedRose = new GildedRose($this->behaviors);
+        $gildedRose = new GildedRose($this->strategyFactory);
         $gildedRose->updateItem($item);
 
         $this->assertEquals(SellIn::fromInteger($expectedSellIn), $item->getSellIn());
@@ -120,5 +79,34 @@ class GildedRoseTest extends TestCase
             'Elixir of the Mongoose before sell in date'                       => ['Elixir of the Mongoose', 10, 10, 9, 9],
             'Elixir of the Mongoose sell in date'                              => ['Elixir of the Mongoose', 0, 10, -1, 8],
         ];
+    }
+
+    private function getStrategyBuilder(): StrategyBuilder
+    {
+        $sulfuras   = new ItemName('Sulfuras, Hand of Ragnaros');
+        $brie       = new ItemName('Aged Brie');
+        $backstage  = new ItemName('Backstage passes to a TAFKAL80ETC concert');
+        $sellInDate = new SellInDate();
+        $sellByDate = new SellByDate();
+
+        return (new StrategyBuilder())
+            ->when($sulfuras)
+            ->then(new SetSpecialQuality())
+            ->when($brie->and(SellInLessThanOrEqual::to(0)))
+            ->then(new IncreaseQualityTwice(), new DecreaseSellIn())
+            ->when($brie)
+            ->then(new IncreaseQuality(), new DecreaseSellIn())
+            ->when($backstage->and($sellByDate))
+            ->then(new DropQuality(), new DecreaseSellIn())
+            ->when($backstage->and(SellInLessThanOrEqual::to(5)))
+            ->then(new IncreaseQualityBy(3), new DecreaseSellIn())
+            ->when($backstage->and(SellInLessThanOrEqual::to(10)))
+            ->then(new IncreaseQualityTwice(), new DecreaseSellIn())
+            ->when($backstage->and($sellInDate))
+            ->then(new IncreaseQuality(), new DecreaseSellIn())
+            ->when($sellByDate)
+            ->then(new DecreaseQualityTwice(), new DecreaseSellIn())
+            ->when($sellInDate)
+            ->then(new DecreaseQuality(), new DecreaseSellIn());
     }
 }
