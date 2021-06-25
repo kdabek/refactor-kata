@@ -1,14 +1,20 @@
-Poniższe zadanie zostało stworzone do ćwiczenia praktycznych umiejętności refaktoryzacji kodu. 
-W katalogu tests znajduje się 19 testów, które w momencie rozpoczęcia zadania wszystkie uruchamiają
-się i przechodzą prawidłowo. Testy te będą podstawowym narzędziem umożliwiającym kontrolę refaktoryzowanego kodu.
-Twoim zadaniem jest refaktoryzacja kodu – czyli wprowadzanie zmian, które poprawią jego jakość, nie zmieniając przy tym
-logiki działania. Jakie zmiany prowadzisz, jakiś wzorców lub dobrych praktyk użyjesz – zależy od Ciebie. 
-Każda poprawa jakości kodu jest lepsza niż jej brak! Pamiętaj jednak, że w momencie oddawania zadania wszystkie testy 
-muszą ponownie przechodzić poprawnie.
+![Build status](https://github.com/kdabek/refactor-kata/actions/workflows/php.yml/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2f19de0364da2da05815/maintainability)](https://codeclimate.com/github/kdabek/refactor-kata/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2f19de0364da2da05815/test_coverage)](https://codeclimate.com/github/kdabek/refactor-kata/test_coverage)
 
-Zadanie powinno być uruchamiane w PHP 7.3. Testy jednostkowe zostały napisane z użyciem frameworka phpunit w wersji 
-8.2 i na takim powinny być odpalane. Opis zadania zawierający wyjaśnienie logiki biznesowej zawartej w klasie 
-GildedRose.php znajduje się poniżej.
+## Introduction
+
+The following task has been created to practice the practical skills of code refactoring. 
+There are 19 tests in the tests directory which all run and pass correctly when the task is started. 
+These tests will be the basic tool for checking the refactored code. 
+Your task is to refactor the code - that is, to make changes that will improve its quality without changing the logic of operation. 
+What changes you make, some patterns or best practices you use - depends on you. Any code quality improvement is better than no code improvement! 
+Remember, however, that all tests must be passed correctly when you submit an assignment.
+
+The job should run in PHP 7.3. Unit tests were written using the phpunit 8.2 framework and should be run on it. 
+A task description explaining the business logic contained in the GildedRose.php class is provided below.
+
+> This task originally comes from https://github.com/QafooLabs/gilded-rose-kata
 
 ## Requirements
 - composer
@@ -18,7 +24,7 @@ GildedRose.php znajduje się poniżej.
 ## Instalation
 To install dependencies run ```composer install```. To run test use ```./vendor/bin/phpunit```.
 
-## Introduction
+## Description
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a
 prime location in a prominent city ran by a friendly innkeeper named Allison.
