@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Item\Strategy\Builder;
@@ -6,6 +7,7 @@ namespace App\Item\Strategy\Builder;
 use App\Item\Specification\Composite\SpecificationInterface;
 use App\Item\Strategy\UpdateItem;
 use LogicException;
+
 use function array_map;
 use function array_reduce;
 use function array_shift;
