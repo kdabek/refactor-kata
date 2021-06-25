@@ -1,33 +1,27 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App;
 
 use App\Item\Item;
-use App\Item\Specification\Composite\SpecificationInterface;
-
-use function call_user_func;
+use App\Item\Strategy\Factory\StrategyFactory;
 
 final class GildedRose
 {
     /**
-     * @var array
+     * @var StrategyFactory
      */
-    private $behaviors;
+    private $strategyFactory;
 
-    public function __construct(array $behaviors)
+    public function __construct(StrategyFactory $strategyFactory)
     {
-        $this->behaviors = $behaviors;
+        $this->strategyFactory = $strategyFactory;
     }
 
     public function updateItem(Item $item)
     {
-        /** @var SpecificationInterface $specification */
-        foreach ($this->behaviors as [$specification, $callback]) {
-            if ($specification->isSatisfiedBy($item)) {
-                call_user_func($callback, $item);
-                break;
-            }
-        }
+        $strategy = $this->strategyFactory->createFor($item);
+        $strategy->update($item);
     }
 }

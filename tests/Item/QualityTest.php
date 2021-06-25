@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Item;
 
-use LogicException;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 class QualityTest extends TestCase
