@@ -18,7 +18,7 @@ abstract class BaseStrategyCaseTest extends TestCase
      */
     protected $item;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
 

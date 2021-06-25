@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Item\Strategy\Builder;
 
+use App\Item\Specification\SellInDate;
 use App\Item\Strategy\DecreaseSellIn;
 use LogicException;
-use App\Item\Specification\SellInDate;
 use PHPUnit\Framework\TestCase;
 
 class StrategyBuilderTest extends TestCase

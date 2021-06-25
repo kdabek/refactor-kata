@@ -8,5 +8,6 @@ use App\Item\Item;
 interface UpdateItem
 {
     public function next(UpdateItem $strategy): UpdateItem;
+
     public function update(Item $item): ?UpdateItem;
 }

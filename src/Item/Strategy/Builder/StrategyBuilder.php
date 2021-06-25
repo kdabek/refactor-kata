@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Item\Strategy\Builder;
 
+use App\Item\Specification\Composite\SpecificationInterface;
 use App\Item\Strategy\UpdateItem;
 use LogicException;
-use App\Item\Specification\Composite\SpecificationInterface;
-
+use function array_map;
+use function array_reduce;
+use function array_shift;
 use function count;
 
 class StrategyBuilder
@@ -45,7 +47,7 @@ class StrategyBuilder
 
     public function build(): array
     {
-        if (count($this->specifications) !== count($this->strategies)){
+        if (count($this->specifications) !== count($this->strategies)) {
             throw new LogicException('Incorrect specifications and strategies count.');
         }
 

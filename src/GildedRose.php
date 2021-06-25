@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Item\Strategy\Factory\StrategyFactory;
 use App\Item\Item;
+use App\Item\Strategy\Factory\StrategyFactory;
 
 final class GildedRose
 {

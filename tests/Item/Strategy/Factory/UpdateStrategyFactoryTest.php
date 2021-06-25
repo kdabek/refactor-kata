@@ -5,11 +5,11 @@ namespace App\Item\Strategy\Factory;
 
 use App\Item\Item;
 use App\Item\Specification\SellByDate;
+use App\Item\Strategy\Builder\StrategyBuilder;
 use App\Item\Strategy\DropQuality;
+use LogicException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use App\Item\Strategy\Builder\StrategyBuilder;
-use LogicException;
 
 class UpdateStrategyFactoryTest extends TestCase
 {

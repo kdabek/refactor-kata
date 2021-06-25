@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace App\Item\Specification;
 
-use App\Item\Item;
-use App\Item\SellIn;
+use App\Item\{Item, SellIn};
 
 class SellInDate extends Composite\CompositeSpecification
 {

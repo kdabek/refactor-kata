@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace App\Item\Strategy;
 
-use App\Item\Item;
-use App\Item\Quality;
+use App\Item\{Item, Quality};
 
 class SetSpecialQuality extends BaseStrategy
 {

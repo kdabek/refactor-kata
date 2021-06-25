@@ -3,24 +3,27 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Item\Strategy\Builder\StrategyBuilder;
-use App\Item\Strategy\DecreaseQuality;
-use App\Item\Strategy\DecreaseQualityTwice;
-use App\Item\Strategy\DecreaseSellIn;
-use App\Item\Strategy\DropQuality;
-use App\Item\Strategy\Factory\StrategyFactory;
-use App\Item\Strategy\Factory\UpdateStrategyFactory;
-use App\Item\Strategy\IncreaseQuality;
-use App\Item\Strategy\IncreaseQualityBy;
-use App\Item\Strategy\IncreaseQualityTwice;
-use App\Item\Strategy\SetSpecialQuality;
 use App\Item\Item;
 use App\Item\Quality;
 use App\Item\SellIn;
-use App\Item\Specification\ItemName;
-use App\Item\Specification\SellByDate;
-use App\Item\Specification\SellInDate;
-use App\Item\Specification\SellInLessThanOrEqual;
+use App\Item\Specification\{
+    ItemName,
+    SellByDate,
+    SellInDate,
+    SellInLessThanOrEqual,
+};
+use App\Item\Strategy\Builder\StrategyBuilder;
+use App\Item\Strategy\{
+    DecreaseQuality,
+    DecreaseQualityTwice,
+    DecreaseSellIn,
+    DropQuality,
+    IncreaseQuality,
+    IncreaseQualityBy,
+    IncreaseQualityTwice,
+    SetSpecialQuality,
+};
+use App\Item\Strategy\Factory\{StrategyFactory, UpdateStrategyFactory};
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
